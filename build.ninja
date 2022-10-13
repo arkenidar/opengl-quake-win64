@@ -1,8 +1,27 @@
 ninja_required_version = 1.5
 
 cc = g++
-cflags = -Wall -s -march=native `sdl2-config --cflags`
-libs = `sdl2-config --libs` `pkg-config --libs glu`
+
+_cflags_gnulinux = -Wall -s -march=native `sdl2-config --cflags` -D_UNIX
+_libs_gnulinux = `sdl2-config --libs` `pkg-config --libs glu`
+
+_cflags_mswindows = -I/mingw64/include -D_WIN64
+_libs_mswindows = -L/mingw64/lib -mwindows -lopengl32 -lglu32 -lSDL2
+
+########################################
+### warning: activate or deactivate properly the following
+### blocks of "cflags" and "libs" !
+
+### gnulinux (tested: Debian 11, specifically MX Linux )
+#cflags = $_cflags_gnulinux
+#libs = $_libs_gnulinux
+
+### mswindows (tested: Windows 11, using MSYS2/MINGW64 "pacman" packages )
+#cflags = $_cflags_mswindows
+#libs = $_libs_mswindows
+
+########################################
+
 builddir = build
 srcdir = src
 
