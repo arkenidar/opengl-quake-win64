@@ -1,0 +1,25 @@
+
+# msys with mingw64 , "pacman" as package manager 
+
+pacman -Syu
+pacman -Syu # update the system , do it again until everything is already updated
+# already updated
+
+pacman -S git
+pacman -S gcc
+pacman -S ninja
+
+pacman -Ss SDL2 # this is needed!
+pacman -Ss SDL2 | grep mingw64
+pacman --sync mingw-w64-x86_64-SDL2 # install it
+pacman -Ss SDL2 | grep mingw64
+
+# IDK if all of this is needed, eventually skip it
+pacman -S mingw-w64-x86_64-SDL2 mingw-w64-x86_64-SDL2_gfx mingw-w64-x86_64-SDL2_image mingw-w64-x86_64-SDL2_mixer mingw-w64-x86_64-SDL2_net mingw-w64-x86_64-SDL2_ttf 
+
+git clone https://github.com/arkenidar/opengl-quake-win64
+
+cd opengl-quake-win64/ && ls
+nano build.ninja # edit for mingw i.e. ms-windows
+ninja # build the program
+build/quake.exe # run executable program that was built 
